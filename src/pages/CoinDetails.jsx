@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer'
 
 function CoinDetails() {
     const coinDetails = useSelector((state) => state.coinDetailsReducer)
@@ -20,6 +21,7 @@ function CoinDetails() {
 
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

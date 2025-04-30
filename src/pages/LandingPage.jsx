@@ -7,6 +7,7 @@ import { getAllCoinDetailsApi } from '../services/allApis';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCoinDetails } from '../redux/slice/coinDetailsSlice';
+import Footer from '../components/Footer';
 
 
 function LandingPage() {
@@ -137,6 +138,7 @@ const dispatch = useDispatch()
       
 
       </section>
+      <Footer/>
 
     </>
   )

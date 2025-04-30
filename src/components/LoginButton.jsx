@@ -43,6 +43,7 @@ function LoginButton() {
                 const matchedUser = allusers.find(u => u.username === username && u.password === password)
                 if (matchedUser) {
                     dispatch(login(matchedUser))
+                    localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
                     alert("Login successfull")
                     navigate('/home'); // Redirect to home
                 } else {
