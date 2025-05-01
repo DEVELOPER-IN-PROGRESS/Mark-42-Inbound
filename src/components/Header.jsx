@@ -7,6 +7,8 @@ import LoginButton from './LoginButton';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slice/loggedUserSlice';
+import { toast} from 'react-toastify';
+
 
 
 function Header() {
@@ -16,7 +18,7 @@ function Header() {
     //console.log(loggedInUser);
     
      const handlelogout =() =>{
-      alert("Logout?")
+      toast.info("Logging Out..." )
       dispatch(logout()) 
       navigate('/');
      }
@@ -27,7 +29,7 @@ function Header() {
           <FontAwesomeIcon icon={faCoins} className='display-5 m-2' />
           <h1 className='m-2'>TrackMyCrypto</h1>
         </div>
-        {Object.keys(loggedInUser).length === 0 ? <div>
+        {Object.keys(loggedInUser).length === 0 ? <div className='d-flex'>
           <LoginButton />
           <RegisterButton /> </div> : <Button onClick={handlelogout} className='fs-5 me-3' variant="outline-dark">Logout</Button>
         }

@@ -19,7 +19,7 @@ function Footer() {
         <ul className="list-unstyled">
           <li><a href="#" className="text-primary-emphasis text-decoration-none">Home</a></li>
           <li><a href="#" className="text-primary-emphasis text-decoration-none">Features</a></li>
-          <li><a href="#" className="text-primary-emphasis text-decoration-none">Currency List</a></li>
+          <li><a href="#" className="text-primary-emphasis text-decoration-none">Top Coins</a></li>
         </ul>
       </div>
 

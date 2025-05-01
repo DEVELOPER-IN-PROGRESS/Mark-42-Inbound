@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { getAllUsersApi } from '../services/allApis';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slice/loggedUserSlice';
+import { toast} from 'react-toastify';
+
 
 
 
@@ -35,7 +37,7 @@ function LoginButton() {
         // console.log(name);
 
         if (!username || !password) {
-            alert('Please fill the form completely')
+            toast.error('Please fill the form completely')
         } else {
             const alluserDetails = await getAllUsersApi() 
             if (alluserDetails.status >= 200 && alluserDetails.status < 300) {
@@ -44,10 +46,10 @@ function LoginButton() {
                 if (matchedUser) {
                     dispatch(login(matchedUser))
                     localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
-                    alert("Login successfull")
+                    toast.info("Login successful")
                     navigate('/home'); // Redirect to home
                 } else {
-                    alert('Invalid credentials');
+                    toast.error('Invalid credentials');
                     handleReset()
                 }
             }
@@ -68,7 +70,7 @@ function LoginButton() {
                 </Modal.Header>
                 <Modal.Body>
                     <input type="text" placeholder='Username' value={user1.username} onChange={(e) => setUser1({ ...user1, username: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
-                    <input type="text" placeholder='Password' value={user1.password} onChange={(e) => setUser1({ ...user1, password: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
+                    <input type="password" placeholder='Password' value={user1.password} onChange={(e) => setUser1({ ...user1, password: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handlelogin}>Login</Button>

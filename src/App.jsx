@@ -3,6 +3,8 @@ import './App.css'
 import LandingPage from './pages/LandingPage'
 import CoinDetails from './pages/CoinDetails'
 import Home from './pages/Home'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer} from 'react-toastify';
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
         <Route path='/home' element={<Home/>} />
 
       </Routes>
+      <ToastContainer position='top-center' autoClose={3000} theme='colored' />
     </>
   )
 }

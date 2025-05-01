@@ -8,10 +8,15 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCoinDetails } from '../redux/slice/coinDetailsSlice';
 import Footer from '../components/Footer';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 
 function LandingPage() {
 const [coinDetails, setcoinDetails] = useState([])
+const [searchName, setsearchName] = useState("")
+const [searchSymbol, setSearchSymbol] = useState("")
 const dispatch = useDispatch()
 
   const getCoinDetails = async () => {
@@ -101,31 +106,35 @@ const dispatch = useDispatch()
       </section>
       {/* Currency list */}
       <section>
-      <h1 className='text-center'>Currency List</h1>
+      <h1 className='text-center'>Top 100 Coins</h1>
       <div className='my-3 d-md-flex justify-content-center align-items-center w-100 w-md-75 px-3 gap-5'>
       <div className='d-flex justify-content-center align-items-center w-md-50 w-75 mx-auto mb-3'>
-        <input type="text" placeholder='Search by name' name="" id="" className='placeborder-secondary px-3 py-2 w-md-75 w-100' />
-        <button className='btn btn-primary'>Search</button>
+        <input onChange={(e)=>setsearchName(e.target.value)} type="text" placeholder='Search by name like bitcoin, ethereum...' name="" id="" className='placeborder-secondary px-3 py-2 w-md-75 w-100' />
+        <button className='btn btn-primary px-3 py-2'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
       </div>
       <div className='d-flex justify-content-center align-items-center w-md-50 w-75 mx-auto mb-3'>
-        <input type="text" placeholder='Search by symbol' name="" id="" className='placeborder-secondary px-3 py-2 w-md-75 w-100' />
-        <button className='btn btn-primary'>Search</button>
+        <input type="text" onChange={(e)=>setSearchSymbol(e.target.value)} placeholder='Search by symbol like btc,eth..' name="" id="" className='placeborder-secondary px-3 py-2 w-md-75 w-100' />
+        <button className='btn btn-primary px-3 py-2'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
       </div>
       </div>
 
       <Row  xs={1} md={2} lg={4} className='m-5 text-center '>
         
-        {coinDetails.map((item, index) => (
+        {coinDetails
+  .filter((coin) =>
+    coin.name.toLowerCase().startsWith(searchName.toLowerCase()) &&
+    coin.symbol.toLowerCase().startsWith(searchSymbol.toLowerCase())
+  ).map((item, index) => (
          <Col className='mb-3' key={index}>
          <Link to={'/coindetails'} onClick={()=>dispatch(addCoinDetails(item))} style={{textDecoration:"none"}}>
            <Card border="primary" style={{ width: '18rem' }}>
-           <Card.Header>{item.symbol.toUpperCase()}</Card.Header>
+           <Card.Header>{item.symbol}</Card.Header>
            <Card.Body>
              <Card.Title>
-               <img src={item.image} className='me-1' width={'50px'} alt="" />
+               <img src={item.image} className='me-1' width={'50px'} alt="logo" />
                {item.name}</Card.Title>
              <Card.Text>
-               <h4>Current Price : ${item.current_price}</h4>
+               Current Price : ${item.current_price}
              </Card.Text>
            </Card.Body>
          </Card>

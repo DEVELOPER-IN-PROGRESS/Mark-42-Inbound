@@ -3,13 +3,16 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { addUserApi, getAllUsersApi } from '../services/allApis';
+import { toast} from 'react-toastify';
+
 
 function RegisterButton() {
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({
         name: "",
         username: "",
-        password: ""
+        password: "",
+        watchlist : []
     })
     const [duplicateUsername, setDuplicateUsername] = useState(false);
 
@@ -19,7 +22,8 @@ function RegisterButton() {
         setUser({
             name: "",
             username: "",
-            password: ""
+            password: "",
+            watchlist : []
         })
     }
     const checkUsername = async (e) => {
@@ -32,20 +36,20 @@ function RegisterButton() {
         setUser({ ...user, username: e.target.value })
     }
     const addUser = async () => {
-        const { name, username, password } = user //object destructuring
+        const { name, username, password, watchlist } = user //object destructuring
        // console.log(name);
 
         if (!name || !username || !password) {
-            alert('Please fill the form completely')
+            toast.error('Please fill the form completely')
         } else {
             if (duplicateUsername == false) {
-                const result = await addUserApi({ name, username, password })
+                const result = await addUserApi({ name, username, password, watchlist })
                 if (result.status >= 200 && result.status < 300) {
-                    alert("User added successfully")
+                    toast.info("User added successfully. Please Login.")
                     handleReset()
                     handleClose()
                 } else {
-                    alert("Something went wrong. Couldn't add user.")
+                    toast.error("Something went wrong. Couldn't add user.")
                 }
             }
         }
@@ -67,12 +71,13 @@ function RegisterButton() {
                     <input type="text" placeholder='Enter your Name' value={user.name} onChange={(e) => setUser({ ...user, name: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
                     <input type="text" placeholder='Set a username. It should be in small letters.'  onChange={(e) => checkUsername(e)} className='rounded w-100 px-3 py-2 mb-3' />
                     {duplicateUsername && <p className='text-danger'>*Username already taken. Try a new one</p>}
-                    <input type="text" placeholder='Set a password' value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
+                    <input type="password" placeholder='Set a password' value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='rounded w-100 px-3 py-2 mb-3' />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={addUser} variant="primary">Register</Button>
                 </Modal.Footer>
             </Modal>
+
         </>
     )
 }
