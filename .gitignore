@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+reasearch_logs.txt
+*.txt.*swp
+*.txt.s*
+
