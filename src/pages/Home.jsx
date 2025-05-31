@@ -14,13 +14,6 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast} from 'react-toastify';
 
-
-
-
-
-
-
-
 function Home() {
   const [coinDetails, setcoinDetails] = useState([])
   const [searchName, setsearchName] = useState("")
@@ -28,7 +21,6 @@ function Home() {
   const [wlStatus, setwlStatus] = useState({})
   const loggedInUser = useSelector((state) => state.loggedUserReducer)
   const dispatch = useDispatch()
-
 
   const getCoinDetails = async () => {
     const result = await getAllCoinDetailsApi()
@@ -59,17 +51,11 @@ function Home() {
        
       }
     }
-
-
-
-
-
   }
 
   useEffect(() => {
     getCoinDetails()
   }, [loggedInUser])
-
 
   return (
     <>
@@ -116,10 +102,7 @@ function Home() {
                       </Card>
                     </Col>
                   ))}
-
               </Row>
-
-
 
             </section>
           </div>
